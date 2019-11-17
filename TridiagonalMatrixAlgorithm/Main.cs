@@ -24,7 +24,10 @@ namespace TridiagonalMatrixAlgorithm
             FillTheMatrix();
             var solver = new Solver(Matrix);
             var answers = solver.GetSolution();
-            ShowAnswers(answers);
+            if (answers != null)
+                ShowAnswers(answers);
+            else
+                ShowWarning();
         }
 
         private void FillTheMatrix()
@@ -49,10 +52,23 @@ namespace TridiagonalMatrixAlgorithm
 
         private void ShowAnswers(double[] answers)
         {
+            w0.Hide();
+            w1.Hide();
+            w2.Hide();
+            w3.Hide();
+
             a0.Text = Math.Round(answers[0], 5).ToString();
             a1.Text = Math.Round(answers[1], 5).ToString();
             a2.Text = Math.Round(answers[2], 5).ToString();
             a3.Text = Math.Round(answers[3], 5).ToString();
+        }
+
+        private void ShowWarning()
+        {
+            w0.Visible = Visible;
+            w1.Visible = Visible;
+            w2.Visible = Visible;
+            w3.Visible = Visible;
         }
     }
 }

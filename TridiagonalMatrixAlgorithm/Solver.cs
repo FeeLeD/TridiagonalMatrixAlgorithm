@@ -58,7 +58,41 @@ namespace TridiagonalMatrixAlgorithm
                     answers[str] = coefficients[str, 0] * answers[str + 1] + coefficients[str, 1];
             }
 
-            return answers;
+            if (AreAnswersCorrect(answers))
+                return answers;
+            else
+                return null;
+        }
+
+        private bool AreAnswersCorrect(double[] answers)
+        {
+            double a, b, c, d, r;
+            for (var str = 0; str < 4; str++)
+            {
+                b = Matrix[str, str];
+                d = Matrix[str, 4];
+
+                if (str == 0) 
+                {
+                    c = Matrix[str, str + 1];
+                    r = Math.Round((d - b * answers[str] - c * answers[str + 1]), 5);
+                } 
+                else if (str == 3)
+                {
+                    a = Matrix[str, str - 1];
+                    r = Math.Round((d - (a * answers[str - 1] + b * answers[str])), 5);
+                }
+                else
+                {
+                    a = Matrix[str, str - 1];
+                    c = Matrix[str, str + 1];
+                    r = Math.Round((d - a * answers[str - 1] - b * answers[str] - c * answers[str + 1]), 5);
+                }
+
+                if (r != 0)
+                    return false;
+            } 
+            return true;
         }
 
     }
